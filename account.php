@@ -68,13 +68,13 @@ if (isset($_POST['submit'])) {
 			}
 		}
 	}
-	if ($pass == 0) {
-		$name=$fname." ".$lname;
+	if ($pass == 6) {
+		$name = $fname . " " . $lname;
 		$signUp = new common();
-		$res=$signUp->signUp($name, $email, $mobile, $password, $_POST['sq'], $_POST['sa']);
-		if($res=='1'){
+		$res = $signUp->signUp($name, $email, $mobile, $password, $_POST['sq'], $_POST['sa']);
+		if ($res == 1) {
 			echo "<script>alert('Successfully Registred')</script>";
-		}else{
+		} else {
 			echo "<script>alert('Try Again')</script>";
 		}
 	}
@@ -91,145 +91,110 @@ function test_input($data)
 <html>
 
 <head>
-	<?php require_once 'head.php' ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+		#eVerify,
+		#eotpVerify,
+		#mVerify,
+		#motpVerify,
+		input[type='submit'] {
+			background: #E7663F;
+		}
+
+		h2 {
+			color: #7D75C7;
+		}
+	</style>
 </head>
 
 <body>
-	<!---header--->
-	<div class="header">
-		<div class="container">
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-							<i class="sr-only">Toggle navigation</i>
-							<i class="icon-bar"></i>
-							<i class="icon-bar"></i>
-							<i class="icon-bar"></i>
-						</button>
-						<div class="navbar-brand">
-							<h1><a href="index.html">Planet Hosting</a></h1>
-						</div>
-					</div>
-
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li><a href="index.php">Home <i class="sr-only">(current)</i></a></li>
-							<li><a href="about.php">About</a></li>
-							<li><a href="services.php">Services</a></li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hosting<i class="caret"></i></a>
-								<ul class="dropdown-menu">
-									<?php
-									$selectCategory = new admin();
-									$productList = $selectCategory->selectCategory();
-									foreach ($productList as $x => $y) {
-										echo "<li><a href='productDetails.php?id=$x&name=$y'>$y</a></li>";
-									}
-									?>
-								</ul>
-							</li>
-							<li><a href="pricing.php">Pricing</a></li>
-							<li><a href="blog.php">Blog</a></li>
-							<li><a href="contact.php">Contact</a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-							<li><a href="login.php">Login</a></li>
-						</ul>
-					</div><!-- /.navbar-collapse -->
-				</div><!-- /.container-fluid -->
-			</nav>
-		</div>
+	<div class="container-fluid py-4">
+		<h1>CedHosting</h1>
 	</div>
-	<!---header--->
-	<!---login--->
-	<div class="content">
-		<!-- registration -->
-		<div class="main-1">
-			<div class="container">
-				<div class="register">
-					<form action="" method="POST">
-						<div class="register-top-grid">
-							<h3>personal information</h3>
-							<div>
-								<span>First Name<label>*</label></span>
-								<input type="text" name="fname" value="<?php echo $fname; ?>" required>
-								<span class="error"><?php echo $fnameErr; ?></span>
-							</div>
-							<div>
-								<span>Last Name<label>*</label></span>
-								<input type="text" name="lname" value="<?php echo $lname; ?>" required>
-								<span class="error"><?php echo $lnameErr; ?></span>
-							</div>
-							<div>
-								<span>Email Address<label>*</label></span>
-								<input type="email" name="email" value="<?php echo $email; ?>">
-								<span class="error"><?php echo $emailErr; ?></span>
-
-							</div>
-							<div>
-								<span>OTP<label>*</label></span>
-								<input type="text" name="emailOTP">
-							</div>
-							<div>
-								<span>Mobile Number<label>*</label></span>
-								<input type="number" name="mobile" value="<?php echo $mobile; ?>">
-								<span class="error"><?php echo $mobileErr; ?></span>
-
-							</div>
-							<div>
-								<span>OTP<label>*</label></span>
-								<input type="text" name="mobileOTP">
-							</div>
-							<div>
-								<span>Security Question<label>*</label></span>
-								<select name="sq">
-									<option value="What was your childhood nickname?">What was your childhood nickname?</option>
-									<option value="What is the name of your favourite childhood friend?">What is the name of your favourite childhood friend?</option>
-									<option value="What was your favourite place to visit as a child?">What was your favourite place to visit as a child?</option>
-									<option value="What was your dream job as a child?">What was your dream job as a child?</option>
-									<option value="What is your favourite teacher's nickname?">What is your favourite teacher's nickname?</option>
-								</select>
-							</div>
-							<div>
-								<span>Security Answer<label>*</label></span>
-								<input type="text" name="sa" value="<?php echo $sa;?>">
-
-							</div>
-							<div class="clearfix"> </div>
-							<a class="news-letter" href="#">
-								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up for Newsletter</label>
-							</a>
-						</div>
-						<div class="register-bottom-grid">
-							<h3>login information</h3>
-							<div>
-								<span>Password<label>*</label></span>
-								<input type="text" name="pass">
-								<span class="error"><?php echo $passErr; ?></span>
-							</div>
-							<div>
-								<span>Confirm Password<label>*</label></span>
-								<input type="password" name="cpass">
-							</div>
-						</div>
-						<div class="clearfix"> </div>
-						<div class="register-but">
-							<input type="submit" value="submit" name="submit">
-							<div class="clearfix"> </div>
-						</div>
-					</form>
+	<h1 id="check"></h1>
+	<div class="container mt-5 mb-3">
+		<h2>Personal Information</h2>
+		<form action="" method="POST">
+			<div class="row py-3">
+				<div class="col-md">
+					<span class="text-muted">First Name<label class="text-danger">*</label></span>
+					<input type="text" name="fname" value="<?php echo $fname; ?>" class="form-control" id="fname" required>
+					<span class="error"><?php echo $fnameErr; ?></span>
+				</div>
+				<div class="col-md">
+					<span class="text-muted">Last Name<label class="text-danger">*</label></span>
+					<input type="text" name="lname" value="<?php echo $lname; ?>" class="form-control" id="lname" required>
+					<span class="error"><?php echo $lnameErr; ?></span>
 				</div>
 			</div>
-		</div>
-		<!-- registration -->
+			<div class="row py-3">
+				<div class="col-md">
+					<span class="text-muted">Email Address<label class="text-danger">*</label></span>
+					<div class="input-group mb-3">
+						<input type="email" name="email" class="form-control" id="email" value="<?php echo $email; ?>">
+						<input class="btn text-white" type="button" id="eVerify" value="Verify">
+					</div>
+					<span class="error"><?php echo $emailErr; ?></span>
 
+				</div>
+				<div class="col-md input-group mb-3">
+					<input type="text" name="emailOTP" class="form-control" id="eotp">
+					<button class="btn text-white" type="button" id="eotpVerify">Verify</button>
+				</div>
+			</div>
+			<div class="row py-3">
+				<div class="col-md">
+					<span class="text-muted">Mobile Number<label class="text-danger">*</label></span>
+					<div class="input-group mb-3">
+						<input type="number" name="mobile" class="form-control" id="mobile" value="<?php echo $mobile; ?>">
+						<button class="btn text-white" type="button" id="mVerify">Verify</button>
+					</div>
+					<span class="error"><?php echo $mobileErr; ?></span>
+
+				</div>
+				<div class="col-md input-group mb-3">
+					<input type="text" name="mobileOTP" class="form-control" id="motp" placeholder="OTP">
+					<button class="btn text-white" type="button" id="motpVerify">Verify</button>
+				</div>
+			</div>
+			<div class="row py-3">
+				<div class="col-md">
+					<span class="text-muted">Security Question<label class="text-danger">*</label></span>
+					<select name="sq" class="form-select">
+						<option value="What was your childhood nickname?">What was your childhood nickname?</option>
+						<option value="What is the name of your favourite childhood friend?">What is the name of your favourite childhood friend?</option>
+						<option value="What was your favourite place to visit as a child?">What was your favourite place to visit as a child?</option>
+						<option value="What was your dream job as a child?">What was your dream job as a child?</option>
+						<option value="What is your favourite teacher's nickname?">What is your favourite teacher's nickname?</option>
+					</select>
+				</div>
+				<div class="col-md">
+					<span class="text-muted">Security Answer<label class="text-danger">*</label></span>
+					<input type="text" name="sa" class="form-control" value="<?php echo $sa; ?>">
+
+				</div>
+			</div>
 	</div>
-	<!-- login -->
-	<!---footer--->
-	<?php require_once 'footer.php' ?>
-	<!---footer--->
+	<div class="container mb-5">
+		<h2>Login Information</h2>
+		<div class="row py-3">
+			<div class="col-md">
+				<span class="text-muted">Password<label class="text-danger">*</label></span>
+				<input type="text" name="pass" class="form-control">
+				<span class="error"><?php echo $passErr; ?></span>
+			</div>
+			<div class="col-md">
+				<span class="text-muted">Confirm Password<label class="text-danger">*</label></span>
+				<input type="password" name="cpass" class="form-control">
+			</div>
+		</div>
+		<input type="submit" class="btn text-white" value="SUBMIT" name="submit">
+	</div>
+	</form>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>	
 </body>
-
+<script src="Validations/validation.js"></script>
 </html>

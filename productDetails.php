@@ -101,33 +101,37 @@ require_once 'processLogic.php';
                                 ?>
                                         <div class="col-md-3 linux-price">
                                             <div class="linux-bottom us-bottom">
-                                                <h5><i class='fas fa-rupee-sign'></i> <?php echo $row[1] ?><span class="month"> per month</span></h5>
+                                                <h5><i class='fas fa-rupee-sign'></i> <?php echo $row[2] ?><span class="month"> per month</span></h5>
                                                 <ul>
                                                     <?php
                                                     $i = 0;
                                                     foreach ($row as $key2 => $val) {
                                                         if ($key2 == 0) {
-                                                            $des = json_decode($val);
-                                                            // --To display Product name--
-                                                            foreach ($des as $x => $y) {
-                                                                if ($x == 'Product Name') {
-                                                                    echo "<h6>", $y, "</h6>";
-                                                                }
-                                                            }
-                                                            // ------------------
-                                                            echo "<li><strong>$arr[$i]</strong></li>";
-                                                            foreach ($des as $x => $y) {
-                                                                echo "$x:  $y<br>";
-                                                            }
+                                                            $productId = $val;
                                                         } else {
-                                                            echo "<li><strong>$arr[$i]</strong>$val</li>";
+                                                            if ($key2 == 1) {
+                                                                $des = json_decode($val);
+                                                                // To display Product name
+                                                                foreach ($des as $x => $y) {
+                                                                    if ($x == 'Product Name') {
+                                                                        echo "<h6>", $y, "</h6>";
+                                                                    }
+                                                                }
+                                                                // ------------------
+                                                                echo "<li><strong>$arr[$i]</strong></li>";
+                                                                foreach ($des as $x => $y) {
+                                                                    echo "$x:  $y<br>";
+                                                                }
+                                                            } else {
+                                                                echo "<li><strong>$arr[$i]</strong>$val</li>";
+                                                            }
+                                                            $i++;
                                                         }
-                                                        $i++;
                                                     }
                                                     ?>
                                                 </ul>
                                             </div>
-                                            <a href="#" class="us-button">buy now</a>
+                                            <a href="cart.php?id='<?php echo $productId ?>'" class="us-button">buy now</a>
                                         </div>
                                 <?php
                                     }

@@ -1,13 +1,18 @@
 <?php
+session_start();
 require_once 'processLogic.php';
 if (isset($_POST['login'])) {
+	$uname = $_POST['uname'];
+	$password = $_POST['password'];
 	$common = new common();
-	$res = $common->mapVisitor($_POST['uname'], $_POST['password']);
+	$res = $common->mapVisitor($uname, $password);
 	if ($res == 1) {
+		$_SESSION['user'] = $uname;
 		header('location:User/index.php');
 	} elseif ($res == 2) {
+		$_SESSION['admin'] = $uname;
 		header('location: Admin/CreateCategory.php');
-	} else{
+	} else {
 		echo '<script>alert("Please Enter Valid UserId or Password!");</script>';
 	}
 }
