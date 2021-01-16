@@ -51,7 +51,7 @@ require_once 'processLogic.php';
                             <li><a href="pricing.php">Pricing</a></li>
                             <li><a href="blog.php">Blog</a></li>
                             <li><a href="contact.php">Contact</a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                            <li><a href="cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
                             <li><a href="login.php">Login</a></li>
                         </ul>
 
@@ -131,7 +131,7 @@ require_once 'processLogic.php';
                                                     ?>
                                                 </ul>
                                             </div>
-                                            <a href="cart.php?id='<?php echo $productId ?>'" class="us-button">buy now</a>
+                                            <button type="button" value="<?php echo $productId ?>" class="us-button" data-toggle="modal" data-target="#exampleModal" id="buynow">Buy Now</button>
                                         </div>
                                 <?php
                                     }
@@ -145,11 +145,48 @@ require_once 'processLogic.php';
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Plan Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" method="POST">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Select Plans:</label>
+                            <select class="form-control" id="select" name="select">
+                                <option value="mon_price">Monthly</option>
+                                <option value="annual_price">Annualy</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success" id="proceed">Proceed</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!---footer--->
     <?php require_once 'footer.php' ?>
     <!---footer--->
 
-
 </body>
+<script>
+    var buynow;
+    var select;
+    $('#buynow').click(function() {
+        buynow = $(this).val();
+    })
+    $('#proceed').click(function() {
+        select = $('#select').val();
+        window.location.href = "cart.php?id=" + buynow + "&plan=" + select;
+    })
+</script>
 
 </html>

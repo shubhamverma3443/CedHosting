@@ -46,17 +46,14 @@ if ($con) {
                 return 0;
             }
         }
-        function addProductInCart($id){
-            // $sql = "select id,prod_name from tbl_product where prod_parent_id='1' and prod_available='1'";
-            // $result = $GLOBALS['con']->query($sql);
-            // if ($result->num_rows > 0) {
-            //     $i = 0;
-            //     while ($row = $result->fetch_assoc()) {
-            //         $arr[$row['id']] = $row['prod_name'];
-            //         $i++;
-            //     }
-            //     return $arr;
-            // }
+        function addProductInCart($id,$plan){
+            $sql = "select description, $plan from tbl_product_description where id=$id";
+            $result = $GLOBALS['con']->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    return $row;
+                }
+            }
         }
     }
 
@@ -101,8 +98,6 @@ if ($con) {
             if ($result2->num_rows > 0) {
                 return 1;
             } else {
-
-
                 $sql = "insert into tbl_product_description (id,prod_id,description,mon_price,annual_price,sku) values(NULL,'$productId','$productDescription','{$productValidity['Monthly Price']}','{$productValidity['Annual Price']}','{$productValidity['Sku']}')";
                 $sql2 = "insert into tbl_product (prod_parent_id, prod_name, prod_available) values('$productId','$productName', '1')";
                 if ($GLOBALS['con']->query($sql) && $GLOBALS['con']->query($sql2)) {

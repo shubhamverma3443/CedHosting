@@ -48,7 +48,7 @@ require_once 'processLogic.php';
 							<li class="active"><a href="pricing.php">Pricing</a></li>
 							<li><a href="blog.php">Blog</a></li>
 							<li><a href="contact.php">Contact</a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+							<li><a href="cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 							<li><a href="login.php">Login</a></li>
 						</ul>
 
