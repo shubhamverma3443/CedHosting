@@ -69,76 +69,41 @@ require_once 'processLogic.php';
                 <th scope="col">Free Domain</th>
                 <th scope="col">Language</th>
                 <th scope="col">Mailbox</th>
-                <th scope="col">Plan</th>
                 <th scope="col">Price</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            // $arr2 = $_SESSION['cartData'];
-            // foreach ($arr2 as $key => $row) {
-            //     if ($key == 0) {
-            //         foreach ($row as $y => $z) {
-            //             echo "<td>$z</td>";
-            //         }
-            //     } else {
-            //         echo "<td>$row</td>";
-            //     }
-            // }
-            // print_r($arr2);
-            // if (isset($_GET['id'])) {
-            //     $id = $_GET['id'];
-            //     $select = $_GET['plan'];
-            //     $addProductInCart = new common();
-            //     $res = $addProductInCart->addProductInCart($id, $select);
-            //     print_r($res);
-            //     if ($x == 'description') {
-            //     $data = json_decode($res);
-            //         foreach ($data as $a => $b) {
-            //             echo "<td>$b</td>";
-            //         }
-            //     array_push($res, $select);
-            //     $_SESSION['cartData'] = $res;
-            // // }
-            // $arr2 = $_SESSION['cartData'];
-            // print_r($arr2);
-            // foreach ($arr2 as $x => $y) {
-            //     if ($x == 'description') {
-            //         $data = json_decode($y);
-            //         foreach ($data as $a => $b) {
-            //             echo "<td>$b</td>";
-            //         }
-            //     } else {
-            //         echo "<td>$y</td>";
-            //     }
-            // }
-            // echo "<tr>";
-            // $arr2 = $_SESSION['cartData'];
-            // foreach($arr2 as $key=>$row){
-            //     foreach($row as $key2=>$x){
-            //         if($key2==0){
-            //             foreach($x as $y=>$z){
-            //                 echo "<td>$z</td>";
-            //             }
-            //         }else{
-            //             echo "<td>$x</td>";
-            //         }
-            //     }
-            // }
-            // foreach ($arr[0] as $x => $y) {
-            //     echo "<td>$y</td>";
-            // }
-            // if ($select == 'annual_price') {
-            //     $newSelect = 'Annual Plan';
-            // } else {
-            //     $newSelect = 'Monthly Plan';
-            // }
-            // echo "<td>$newSelect</td><br>";
-            // echo "<td>", $res[$select], "</td>";
-            // echo "</tr>";
-            // } else {
-            //     echo "<tr><td>your cart is empty</td></tr>";
-            // }
+            //unset($_SESSION['cart']);
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                $select = $_GET['plan'];
+                $c = 0;
+                $addProductInCart = new common();
+                $res = $addProductInCart->addProductInCart($id, $select);
+                $_SESSION['cart'][] = $res;
+            }
+            if ($_SESSION['cart'] != '') {
+                $arr = $_SESSION['cart'];
+                foreach ($arr as $item) {
+                    echo " <tr>";
+                    foreach ($item as $x => $y) {
+                        if ($x == 'description') {
+                            $arr2 = json_decode($y);
+                            foreach ($arr2 as $a => $b) {
+                                echo "<td>$b</td>";
+                            }
+                        } else {
+                            if ($x == "mon_price" || $x == "annual_price") {
+                                $c = (int)$c + (int)$y;
+                            }
+                            echo "<td>$y</td>";
+                        }
+                    }
+                    echo "</tr>";
+                }
+                echo "<td><a href='payment.php?amount=$c'><button>Check Out</button></a></td>";
+            }
             ?>
         </tbody>
     </table>
